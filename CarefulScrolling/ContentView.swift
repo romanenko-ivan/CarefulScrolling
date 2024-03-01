@@ -1,9 +1,9 @@
 import SwiftUI
 
-struct ContentView: View {
+struct MainView: View {
     var body: some View {
         TabView {
-            MainView()
+            ContentView()
                 .tabItem {
                     Label("First", systemImage: "star")
                 }
@@ -11,23 +11,21 @@ struct ContentView: View {
     }
 }
 
-#Preview {
-    ContentView()
-}
-
-struct MainView: View {
+struct ContentView: View {
     var body: some View {
-        ScrollView {
-            LazyVStack(spacing: 10, pinnedViews: [.sectionFooters]) {
-                Section(footer: FooterView()) {
+        VStack(spacing: 0) {
+            ScrollView {
+                LazyVStack(spacing: 10, pinnedViews: [.sectionFooters]) {
                     ForEach(0...100, id: \.self) { i in
                         Text("\(i)")
                             .font(.title)
                         
                     }
                 }
+                .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity)
+            
+            FooterView()
         }
     }
 }
@@ -35,7 +33,12 @@ struct MainView: View {
 struct FooterView: View {
     var body: some View {
         Rectangle()
-            .fill(Color.red.opacity(0.5))
+            .fill(Color.red)
             .frame(height: 50)
     }
+}
+
+
+#Preview {
+    MainView()
 }
