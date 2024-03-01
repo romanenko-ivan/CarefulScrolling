@@ -1,44 +1,31 @@
 import SwiftUI
 
-struct MainView: View {
+struct ContentView: View {
+    private let footerHeight: CGFloat = 50
+    
     var body: some View {
         TabView {
-            ContentView()
-                .tabItem {
-                    Label("First", systemImage: "star")
-                }
-        }
-    }
-}
-
-struct ContentView: View {
-    var body: some View {
-        VStack(spacing: 0) {
             ScrollView {
-                LazyVStack(spacing: 10, pinnedViews: [.sectionFooters]) {
+                LazyVStack {
                     ForEach(0...100, id: \.self) { i in
                         Text("\(i)")
                             .font(.title)
-                        
                     }
                 }
                 .frame(maxWidth: .infinity)
             }
-            
-            FooterView()
+            .tabItem {
+                Label("First", systemImage: "star")
+            }
+            .safeAreaInset(edge: .bottom) {
+                Color.red
+                    .frame(height: footerHeight)
+                    .opacity(0.8)
+            }
         }
     }
 }
 
-struct FooterView: View {
-    var body: some View {
-        Rectangle()
-            .fill(Color.red)
-            .frame(height: 50)
-    }
-}
-
-
 #Preview {
-    MainView()
+    ContentView()
 }
